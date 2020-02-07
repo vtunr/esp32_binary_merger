@@ -35,15 +35,16 @@ class multiple_bin():
                     swapped = True
 
     def add_bin_to_other_bin(self, previous, binary):
-        with open(self.output_path, "ab") as output_file:
-            output_file.write( '\xff' * (binary.addr-1))
+        with open(self.output_path, "a") as output_file:
+            output_file.write( '\xff' * (binary.addr-previous))
         print "Add %s from 0x%x to 0x%x (0x%x)"%(binary.file_name, binary.addr, binary.addr+binary.size, binary.size)
-        with open(self.output_path, "ab") as output_file, open(binary.file_path, "rb") as bin_file:
+        with open(self.output_path, "a") as output_file, open(binary.file_path, "r") as bin_file:
             output_file.write(bin_file.read())
-        return int(os.path.getsize(self.output_path))
+        return binary.addr+binary.size
 
     def create_bin(self):
         new_start = 0 
+        open(self.output_path, "w").close
         for b in self.bin_array:
             new_start = self.add_bin_to_other_bin(new_start, b)
 
