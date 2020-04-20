@@ -79,7 +79,7 @@ def main():
     mb.sort_bin()
     mb.check_if_possible()
     mb.create_bin()
-    print "app_output.bin generated with success ! (size %u)"%(int(os.path.getsize(mb.output_path)))
+    print "%s generated with success ! (size %u)"%(args.output_name, int(os.path.getsize(mb.output_path)))
 
 if __name__ == "__main__":
     exit(main())
